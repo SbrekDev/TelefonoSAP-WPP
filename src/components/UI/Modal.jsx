@@ -1,4 +1,5 @@
-import { useEffect, useCallback } from 'react'
+import { useEffect, useCallback, useRef } from 'react'
+import { createPortal } from 'react-dom'
 
 export default function Modal({
   open,
@@ -7,6 +8,8 @@ export default function Modal({
   children,
   footer,
 }) {
+  const modalRef = useRef(null)
+
   const handleKeyDown = useCallback(e => {
     if (e.key === 'Escape') onClose()
   }, [onClose])
@@ -22,15 +25,17 @@ export default function Modal({
     }
   }, [open, handleKeyDown])
 
-  return (
+  if (!open) return null
+
+  return createPortal(
     <div
-      className={`modal-overlay ${open ? 'modal-overlay--open' : ''}`}
+      className="modal-overlay modal-overlay--open"
       onClick={e => e.target === e.currentTarget && onClose()}
       role="dialog"
       aria-modal="true"
       aria-label={title}
     >
-      <div className="modal">
+      <div className="modal" ref={modalRef}>
         <div className="modal__header">
           <h2 className="modal__title">{title}</h2>
           <button className="modal__close" onClick={onClose} aria-label="Cerrar">
@@ -49,6 +54,7 @@ export default function Modal({
           </div>
         )}
       </div>
-    </div>
+    </div>,
+    document.body
   )
 }
