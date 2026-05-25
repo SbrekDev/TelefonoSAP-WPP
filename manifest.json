@@ -1,11 +1,11 @@
 {
-  "name": "Proyecto Teléfono",
-  "short_name": "Teléfono",
-  "description": "Aplicación de gestión de contactos y mensajes",
+  "name": "SAP-TelefonoWPP",
+  "short_name": "SAP-TelefonoWPP",
+  "description": "Aplicación de mensajería y comunicación",
   "start_url": ".",
   "display": "standalone",
   "background_color": "#121212",
-  "theme_color": "#6200EE",
+  "theme_color": "#7C4DFF",
   "icons": [
     {
       "src": "./icons/icon-192x192.svg",
