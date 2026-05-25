@@ -37,7 +37,7 @@ export default function Login() {
     <div className="login-page">
       <div className="login-card">
         <div className="login-card__icon">📞</div>
-        <h1>Proyecto Teléfono</h1>
+        <h1>SAP-TelefonoWPP</h1>
         <p className="login-card__subtitle">Inicia sesión para continuar</p>
 
         <form onSubmit={handleSubmit} noValidate>

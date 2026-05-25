@@ -1,4 +1,4 @@
-const CACHE_NAME = 'proyecto-telefono-v1'
+const CACHE_NAME = 'sap-telefonowpp-v1'
 
 const urlsToCache = [
   '.',
