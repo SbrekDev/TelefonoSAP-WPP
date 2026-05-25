@@ -4,9 +4,6 @@ import { useNavigate } from 'react-router-dom'
 const NAV_ITEMS = [
   { path: '/mensajes-predefinidos', label: 'Mensajes predefinidos', icon: '💬' },
   { path: '/notas-temporales', label: 'Notas Temporales', icon: '📝' },
-  { path: '/info-medicos', label: 'Información de médicos', icon: '👨‍⚕️' },
-  { path: '/info-obras-sociales', label: 'Información de obras sociales', icon: '🏥' },
-  { path: '/info-contactos', label: 'Información de contactos', icon: '📇' },
 ]
 
 export default function Sidebar({ open, onClose, currentPath, onNavigate }) {
@@ -35,7 +32,7 @@ export default function Sidebar({ open, onClose, currentPath, onNavigate }) {
         aria-label="Menú de navegación"
       >
         <div className="sidebar__header">
-          <span className="sidebar__header-title">Proyecto Teléfono</span>
+          <span className="sidebar__header-title">SAP-TelefonoWPP</span>
           <button className="sidebar__close" onClick={onClose} aria-label="Cerrar menú">
             <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round">
               <line x1="18" y1="6" x2="6" y2="18" />
