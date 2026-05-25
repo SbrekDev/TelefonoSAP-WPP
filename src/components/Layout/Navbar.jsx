@@ -1,13 +1,11 @@
 import { useLocalStorage } from '../../hooks/useLocalStorage'
 import ThemeToggle from '../UI/ThemeToggle'
 import { useState } from 'react'
+import { toTitleCase } from '../../utils/formatting'
 
 const NAV_ITEMS = [
   { path: '/mensajes-predefinidos', label: 'Mensajes' },
   { path: '/notas-temporales', label: 'Notas' },
-  { path: '/info-medicos', label: 'Médicos' },
-  { path: '/info-obras-sociales', label: 'Obras Sociales' },
-  { path: '/info-contactos', label: 'Contactos' },
 ]
 
 export default function Navbar({ onMenuToggle, currentPath, onNavigate }) {
@@ -15,7 +13,8 @@ export default function Navbar({ onMenuToggle, currentPath, onNavigate }) {
   const [nameInput, setNameInput] = useState(globalName)
 
   const handleSaveName = () => {
-    setGlobalName(nameInput.trim())
+    setGlobalName(toTitleCase(nameInput.trim()))
+    window.location.reload()
   }
 
   const handleNameKeyDown = (e) => {
