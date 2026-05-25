@@ -1,8 +1,8 @@
 const CACHE_NAME = 'proyecto-telefono-v1'
 
 const urlsToCache = [
-  '/',
-  '/offline.html',
+  '.',
+  './offline.html',
 ]
 
 self.addEventListener('install', event => {
@@ -34,7 +34,7 @@ self.addEventListener('fetch', event => {
         if (response) return response
         return fetch(event.request).catch(() => {
           if (event.request.mode === 'navigate') {
-            return caches.match('/offline.html')
+            return caches.match('./offline.html')
           }
         })
       })
