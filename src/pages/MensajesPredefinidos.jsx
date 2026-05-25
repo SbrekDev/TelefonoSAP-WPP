@@ -17,8 +17,10 @@ export default function MensajesPredefinidos() {
   const [patientData, setPatientData] = useState({
     patientName: '',
     patientDocument: '',
+    reservationDate: '',
     reservationTime: '',
     doctorName: '',
+    insuranceProvider: '',
     medicalRecord: '',
   })
   const [search, setSearch] = useState('')

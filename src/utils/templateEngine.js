@@ -1,6 +1,8 @@
 const PLACEHOLDERS = [
-  'patientName', 'patientDocument', 'reservationTime',
-  'doctorName', 'operatorName', 'medicalRecord',
+  'patientName', 'patientDocument',
+  'reservationDate', 'reservationTime',
+  'doctorName', 'operatorName',
+  'insuranceProvider', 'medicalRecord',
 ]
 
 export function renderTemplate(template, data) {
