@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import { useCrud } from '../hooks/useCrud'
+import { useNotasTemporales } from '../hooks/useNotasTemporales'
 import Card from '../components/UI/Card'
 import Button from '../components/UI/Button'
 import Input from '../components/UI/Input'
@@ -8,21 +8,27 @@ import EmptyState from '../components/UI/EmptyState'
 
 const INITIAL_FORM = { titulo: '', contenido: '' }
 
-function formatDate(ts) {
-  const d = new Date(Number(ts))
-  return d.toLocaleDateString('es-AR', {
-    day: '2-digit', month: 'short', year: 'numeric',
-    hour: '2-digit', minute: '2-digit',
-  })
+function formatTimestamp(isoString) {
+  const d = new Date(isoString)
+  const day = String(d.getDate()).padStart(2, '0')
+  const month = String(d.getMonth() + 1).padStart(2, '0')
+  const year = d.getFullYear()
+  const hours = String(d.getHours()).padStart(2, '0')
+  const minutes = String(d.getMinutes()).padStart(2, '0')
+  return `${day}/${month}/${year} - ${hours}:${minutes}`
 }
 
 export default function NotasTemporales() {
-  const { items, add, update, remove } = useCrud('notas_temporales')
+  const { items, add, update, remove } = useNotasTemporales()
   const [modalOpen, setModalOpen] = useState(false)
   const [editing, setEditing] = useState(null)
   const [form, setForm] = useState(INITIAL_FORM)
 
-  const sorted = [...items].sort((a, b) => Number(b.fecha || b.id) - Number(a.fecha || a.id))
+  const sorted = [...items].sort((a, b) => {
+    const dateA = a.createdAt ? new Date(a.createdAt).getTime() : Number(a.id)
+    const dateB = b.createdAt ? new Date(b.createdAt).getTime() : Number(b.id)
+    return dateB - dateA
+  })
 
   const openAdd = () => {
     setEditing(null)
@@ -41,7 +47,7 @@ export default function NotasTemporales() {
     if (editing) {
       update(editing.id, form)
     } else {
-      add({ ...form, fecha: Date.now().toString() })
+      add({ ...form })
     }
     setModalOpen(false)
     setForm(INITIAL_FORM)
@@ -85,7 +91,12 @@ export default function NotasTemporales() {
           {sorted.map(item => (
             <Card
               key={item.id}
-              title={item.titulo}
+              title={
+                <div className="note-card__title-line">
+                  <span>{item.titulo}</span>
+                  <span className="note-timestamp">{formatTimestamp(item.createdAt)}</span>
+                </div>
+              }
               actions={
                 <>
                   <Button variant="ghost" size="sm" onClick={() => openEdit(item)}>Editar</Button>
@@ -94,9 +105,6 @@ export default function NotasTemporales() {
               }
             >
               {item.contenido && <div className="message-preview">{item.contenido}</div>}
-              <div className="note-date" style={{ marginTop: item.contenido ? '0.5rem' : 0 }}>
-                {formatDate(item.fecha || item.id)}
-              </div>
             </Card>
           ))}
         </div>
